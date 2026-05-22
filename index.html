@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barbería3M — Tu mejor versión empieza acá</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,900;1,400;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,200;0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #080808;
+  --black-deep: #050505;
+  --surface: #0e0e0e;
+  --surface-2: #141414;
+  --surface-3: #1a1a1a;
+  --titanium: #2a2a2a;
+  --titanium-mid: #3d3d3d;
+  --titanium-light: #6b6b6b;
+  --white: #ffffff;
+  --white-85: rgba(255,255,255,0.85);
+  --white-55: rgba(255,255,255,0.55);
+  --white-30: rgba(255,255,255,0.30);
+  --white-12: rgba(255,255,255,0.12);
+  --white-06: rgba(255,255,255,0.06);
+  --crimson: #c8102e;
+  --crimson-bright: #e8192f;
+  --crimson-glow: rgba(200,16,46,0.35);
+  --crimson-glow-soft: rgba(200,16,46,0.15);
+  --crimson-glow-faint: rgba(200,16,46,0.06);
+  --glass-bg: rgba(14,14,14,0.72);
+  --glass-border: rgba(255,255,255,0.08);
+  --glass-border-hover: rgba(200,16,46,0.4);
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'DM Sans', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+  --font-mono: 'Space Mono', monospace;
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --shadow-card: 0 2px 4px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.6), 0 20px 60px rgba(0,0,0,0.5);
+  --shadow-red: 0 0 30px var(--crimson-glow), 0 0 80px var(--crimson-glow-soft);
+  --shadow-red-sm: 0 0 16px var(--crimson-glow), 0 0 40px var(--crimson-glow-soft);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  background: var(--black-deep);
+  color: var(--white);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--black-deep); }
+::-webkit-scrollbar-thumb { background: var(--crimson); border-radius: 2px; }
+
+/* PAGE VEIL */
+.page-veil {
+  position: fixed; inset: 0; background: var(--black-deep);
+  z-index: 9000; pointer-events: none;
+  transition: opacity 0.7s cubic-bezier(.25,.46,.45,.94);
+}
+.page-veil.hidden { opacity: 0; }
+
+/* ═══ NAVBAR ═══ */
+nav {
+  position: fixed; top: 18px; left: 50%; transform: translateX(-50%);
+  width: calc(100% - 48px); max-width: 1200px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 28px; height: 60px;
+  background: rgba(8,8,8,0.75); backdrop-filter: blur(24px) saturate(1.6);
+  border: 1px solid var(--glass-border); border-radius: 50px;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5), 0 0 0 1px rgba(200,16,46,0.06), 0 0 28px rgba(200,16,46,0.08), 0 1px 0 rgba(255,255,255,0.05) inset;
+  transition: all .4s;
+}
+nav.scrolled {
+  background: rgba(8,8,8,0.94);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.7), 0 0 0 1px rgba(200,16,46,0.12), 0 0 50px rgba(200,16,46,0.1), 0 1px 0 rgba(255,255,255,0.05) inset;
+}
+.nav-logo {
+  font-family: var(--font-serif); font-weight: 700; font-size: 1.15rem;
+  letter-spacing: .14em; color: var(--white); text-decoration: none;
+}
+.nav-logo span { color: var(--crimson); }
+.nav-links { display: flex; gap: 2px; list-style: none; }
+.nav-links a {
+  font-family: var(--font-sans); font-size: 0.74rem; font-weight: 400;
+  letter-spacing: .06em; color: var(--white-55); text-decoration: none;
+  padding: 8px 14px; border-radius: 50px;
+  transition: color .3s, background .3s;
+}
+.nav-links a:hover { color: var(--white); background: var(--white-06); }
+.btn-reservar {
+  padding: 10px 22px; border-radius: 50px;
+  background: var(--crimson); color: var(--white);
+  font-family: var(--font-sans); font-size: 0.72rem; font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase; text-decoration: none;
+  box-shadow: var(--shadow-red-sm);
+  transition: all .3s; border: none; cursor: pointer;
+}
+.btn-reservar:hover {
+  background: var(--crimson-bright);
+  box-shadow: 0 0 40px var(--crimson-glow), 0 0 100px var(--crimson-glow-soft);
+  transform: translateY(-1px);
+}
+
+/* ═══ HERO ═══ */
+#hero {
+  min-height: 100vh; display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden; padding: 100px 60px 60px;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(200,16,46,0.08) 0%, transparent 60%),
+              radial-gradient(ellipse 40% 40% at 20% 80%, rgba(200,16,46,0.05) 0%, transparent 50%),
+              var(--black-deep);
+}
+.hero-grid {
+  position: absolute; inset: 0; opacity: 0.04;
+  background-image: linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.hero-glow {
+  position: absolute; width: 600px; height: 400px;
+  top: 50%; left: 50%; transform: translate(-50%, -60%);
+  background: radial-gradient(ellipse, rgba(200,16,46,0.22) 0%, transparent 70%);
+  filter: blur(60px); pointer-events: none;
+  animation: heroGlowPulse 6s ease-in-out infinite;
+}
+@keyframes heroGlowPulse {
+  0%, 100% { opacity: 0.7; transform: translate(-50%,-60%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%,-62%) scale(1.08); }
+}
+
+/* Particles */
+.particles { position: absolute; inset: 0; pointer-events: none; }
+.particle {
+  position: absolute; width: 2px; height: 2px;
+  background: var(--crimson); border-radius: 50%;
+  animation: particleFloat linear infinite;
+}
+@keyframes particleFloat {
+  0% { opacity: 0; transform: translateY(0) scale(0); }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.3; }
+  100% { opacity: 0; transform: translateY(-120px) scale(1.5); }
+}
+
+.hero-content {
+  position: relative; z-index: 2; text-align: center; max-width: 900px;
+}
+.hero-eyebrow {
+  font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: .32em;
+  text-transform: uppercase; color: var(--crimson); margin-bottom: 28px;
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  opacity: 0; animation: fadeUp 1s .4s forwards;
+}
+.hero-eyebrow::before, .hero-eyebrow::after {
+  content: ''; display: block; width: 40px; height: 1px; background: currentColor; opacity: .5;
+}
+.hero-title {
+  font-family: var(--font-serif); font-weight: 900;
+  font-size: clamp(5rem, 12vw, 10rem);
+  letter-spacing: .04em; line-height: .9;
+  color: var(--white);
+  text-shadow: 0 0 60px rgba(200,16,46,0.3), 0 0 120px rgba(200,16,46,0.15);
+  opacity: 0; animation: fadeUp 1.1s .6s cubic-bezier(.16,1,.3,1) forwards;
+}
+.hero-title .m3 { color: var(--crimson); display: inline-block; }
+.hero-subtitle {
+  font-family: var(--font-serif); font-style: italic; font-weight: 400;
+  font-size: clamp(1.1rem, 2.5vw, 1.7rem); color: var(--white-55);
+  margin-top: 20px; letter-spacing: .02em;
+  opacity: 0; animation: fadeUp 1s .85s forwards;
+}
+.hero-tags {
+  display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 40px;
+  opacity: 0; animation: fadeUp 1s 1.05s forwards;
+}
+.hero-tag {
+  padding: 7px 16px; border-radius: 50px;
+  background: var(--white-06); border: 1px solid var(--white-12);
+  font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--white-55); backdrop-filter: blur(10px);
+  transition: all .3s;
+}
+.hero-tag:hover { color: var(--white); border-color: rgba(200,16,46,0.5); background: rgba(200,16,46,0.08); }
+.hero-ctas {
+  display: flex; gap: 14px; justify-content: center; margin-top: 44px;
+  opacity: 0; animation: fadeUp 1s 1.2s forwards;
+}
+.btn-primary {
+  padding: 15px 36px; border-radius: 50px;
+  background: var(--crimson); color: var(--white);
+  font-family: var(--font-sans); font-size: 0.8rem; font-weight: 500;
+  letter-spacing: .12em; text-transform: uppercase; text-decoration: none; border: none; cursor: none;
+  box-shadow: 0 4px 20px rgba(200,16,46,0.4), 0 0 60px rgba(200,16,46,0.2);
+  transition: all .35s;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 40px rgba(200,16,46,0.6), 0 0 100px rgba(200,16,46,0.3);
+}
+.btn-secondary {
+  padding: 14px 36px; border-radius: 50px;
+  background: transparent; color: var(--white-85);
+  font-family: var(--font-sans); font-size: 0.8rem; font-weight: 400;
+  letter-spacing: .12em; text-transform: uppercase; text-decoration: none; cursor: none;
+  border: 1px solid var(--white-30); backdrop-filter: blur(10px);
+  transition: all .35s;
+}
+.btn-secondary:hover {
+  background: var(--white-06); border-color: var(--white-55);
+  transform: translateY(-2px);
+}
+
+/* Hero glass cards */
+.hero-cards {
+  position: absolute; inset: 0; pointer-events: none; z-index: 3;
+  opacity: 0; animation: fadeIn 1.5s 1.4s forwards;
+}
+.hero-card {
+  position: absolute; padding: 14px 20px;
+  background: var(--glass-bg); backdrop-filter: blur(20px) saturate(1.8);
+  border: 1px solid var(--glass-border); border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  animation: cardFloat ease-in-out infinite;
+}
+.hero-card-label {
+  font-family: var(--font-mono); font-size: 0.5rem; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--crimson); margin-bottom: 4px;
+}
+.hero-card-val {
+  font-family: var(--font-sans); font-size: 0.9rem; font-weight: 500; color: var(--white);
+}
+.hero-card-sub { font-family: var(--font-sans); font-size: 0.62rem; color: var(--white-55); margin-top: 2px; }
+@keyframes cardFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.hc-1 { top: 22%; left: 6%; animation-duration: 5.5s; animation-delay: 0s; }
+.hc-2 { top: 30%; right: 5%; animation-duration: 6s; animation-delay: 1s; }
+.hc-3 { bottom: 20%; left: 8%; animation-duration: 7s; animation-delay: .5s; }
+.hc-4 { bottom: 25%; right: 6%; animation-duration: 5s; animation-delay: 1.5s; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* SCROLL INDICATOR */
+.scroll-hint {
+  position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  z-index: 5; opacity: 0; animation: fadeIn 1s 2s forwards;
+}
+.scroll-hint span {
+  font-family: var(--font-mono); font-size: 0.5rem; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--white-30);
+}
+.scroll-line {
+  width: 1px; height: 40px;
+  background: linear-gradient(to bottom, var(--crimson), transparent);
+  animation: scrollPulse 2s ease infinite;
+}
+@keyframes scrollPulse { 0%,100%{opacity:.3;} 50%{opacity:1;} }
+
+/* ═══ ABOUT ═══ */
+#about {
+  padding: 120px 60px; max-width: 1200px; margin: 0 auto;
+  position: relative;
+}
+.about-glow {
+  position: absolute; width: 500px; height: 500px;
+  left: -100px; top: 50%; transform: translateY(-50%);
+  background: radial-gradient(ellipse, rgba(200,16,46,0.1) 0%, transparent 70%);
+  filter: blur(80px); pointer-events: none;
+}
+.about-inner {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  position: relative; z-index: 1;
+}
+.about-eyebrow {
+  font-family: var(--font-mono); font-size: 0.56rem; letter-spacing: .3em;
+  text-transform: uppercase; color: var(--crimson); margin-bottom: 20px;
+}
+.about-title {
+  font-family: var(--font-serif); font-weight: 700;
+  font-size: clamp(2.4rem, 4.5vw, 3.8rem); line-height: 1.1;
+  color: var(--white); margin-bottom: 24px;
+}
+.about-title em { font-style: italic; color: var(--crimson); }
+.about-body {
+  font-family: var(--font-sans); font-size: 0.92rem; font-weight: 300;
+  line-height: 1.85; color: var(--white-55); max-width: 380px;
+}
+.about-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.about-card {
+  padding: 24px 22px;
+  background: var(--glass-bg); backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border); border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  transition: all .4s cubic-bezier(.25,.46,.45,.94);
+}
+.about-card:hover {
+  border-color: rgba(200,16,46,0.3);
+  box-shadow: var(--shadow-card), 0 0 30px rgba(200,16,46,0.12);
+  transform: translateY(-4px);
+}
+.about-card-icon { font-size: 1.4rem; margin-bottom: 10px; }
+.about-card-title {
+  font-family: var(--font-inter); font-size: 0.82rem; font-weight: 600;
+  color: var(--white); margin-bottom: 4px; letter-spacing: .01em;
+}
+.about-card-desc { font-family: var(--font-inter); font-size: 0.7rem; font-weight: 300; color: var(--white-30); line-height: 1.6; }
+
+/* ═══ SERVICES ═══ */
+#servicios {
+  padding: 100px 60px; background: var(--surface);
+  position: relative; overflow: hidden;
+}
+.section-glow-r {
+  position: absolute; right: -100px; top: 50%;
+  width: 500px; height: 500px;
+  background: radial-gradient(ellipse, rgba(200,16,46,0.1) 0%, transparent 70%);
+  filter: blur(80px); pointer-events: none; transform: translateY(-50%);
+}
+.section-header { text-align: center; margin-bottom: 60px; position: relative; z-index: 1; }
+.section-eyebrow {
+  font-family: var(--font-mono); font-size: 0.56rem; letter-spacing: .3em;
+  text-transform: uppercase; color: var(--crimson); margin-bottom: 16px;
+}
+.section-title {
+  font-family: var(--font-serif); font-weight: 700;
+  font-size: clamp(2.2rem, 4vw, 3.4rem); color: var(--white); letter-spacing: .04em;
+}
+.services-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  max-width: 1200px; margin: 0 auto; position: relative; z-index: 1;
+}
+.service-card {
+  padding: 40px 32px;
+  background: var(--glass-bg); backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border); border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  transition: all .45s cubic-bezier(.25,.46,.45,.94);
+  cursor: none; position: relative; overflow: hidden;
+}
+.service-card::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(200,16,46,0.12), transparent);
+  opacity: 0; transition: opacity .4s;
+}
+.service-card:hover {
+  border-color: rgba(200,16,46,0.45);
+  box-shadow: var(--shadow-card), 0 0 40px rgba(200,16,46,0.18), 0 0 80px rgba(200,16,46,0.08);
+  transform: translateY(-6px);
+}
+.service-card:hover::before { opacity: 1; }
+.service-num {
+  font-family: var(--font-mono); font-size: 0.52rem; letter-spacing: .28em;
+  color: var(--crimson); margin-bottom: 20px; display: block;
+}
+.service-name {
+  font-family: var(--font-serif); font-weight: 600; font-size: 1.5rem;
+  letter-spacing: .04em; color: var(--white); margin-bottom: 10px;
+}
+.service-desc {
+  font-family: var(--font-inter); font-size: 0.78rem; font-weight: 300;
+  line-height: 1.7; color: var(--white-55); margin-bottom: 24px;
+}
+.service-price {
+  font-family: var(--font-serif); font-weight: 700; font-size: 1.8rem;
+  color: var(--crimson); letter-spacing: .04em;
+}
+.service-price span { font-family: var(--font-inter); font-size: 0.68rem; font-weight: 400; color: var(--white-30); vertical-align: super; margin-right: 4px; }
+.service-line {
+  width: 40px; height: 1px; background: var(--crimson); margin-bottom: 20px;
+  transition: width .4s;
+}
+.service-card:hover .service-line { width: 70px; }
+
+/* ═══ IG PREVIEW ═══ */
+#galeria { padding: 100px 60px; background: var(--black-deep); position: relative; overflow: hidden; }
+.ig-header {
+  display: flex; align-items: flex-end; justify-content: space-between;
+  margin-bottom: 40px; max-width: 1200px; margin-left: auto; margin-right: auto;
+}
+.ig-handle {
+  font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: .12em;
+  color: var(--crimson); text-decoration: none; transition: color .3s;
+}
+.ig-handle:hover { color: var(--white); }
+.ig-grid {
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px;
+  max-width: 1200px; margin: 0 auto;
+}
+.ig-cell {
+  aspect-ratio: 1; border-radius: var(--radius-sm); overflow: hidden;
+  position: relative; cursor: none;
+  background: var(--surface-3);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  transition: transform .4s cubic-bezier(.25,.46,.45,.94);
+}
+.ig-cell:hover { transform: scale(1.04); z-index: 2; }
+.ig-cell-bg {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font-size: 2rem; opacity: .25; filter: grayscale(1);
+  transition: transform .5s;
+}
+.ig-cell:hover .ig-cell-bg { transform: scale(1.1); }
+.ig-cell-ov {
+  position: absolute; inset: 0;
+  background: rgba(200,16,46,0.7); display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity .35s;
+}
+.ig-cell:hover .ig-cell-ov { opacity: 1; }
+.ig-cell-tag {
+  font-family: var(--font-mono); font-size: 0.5rem; letter-spacing: .16em;
+  text-transform: uppercase; color: rgba(255,255,255,.9); text-align: center; padding: 8px;
+}
+.ig-cell:nth-child(1) .ig-cell-bg { background: linear-gradient(135deg,#1a1a1a,#2a2a2a); }
+.ig-cell:nth-child(2) .ig-cell-bg { background: linear-gradient(135deg,#141414,#222); }
+.ig-cell:nth-child(3) .ig-cell-bg { background: linear-gradient(135deg,#1c1c1c,#303030); }
+.ig-cell:nth-child(4) .ig-cell-bg { background: linear-gradient(135deg,#181818,#252525); }
+.ig-cell:nth-child(5) .ig-cell-bg { background: linear-gradient(135deg,#121212,#1e1e1e); }
+.ig-cell:nth-child(6) .ig-cell-bg { background: linear-gradient(135deg,#1e1e1e,#2c2c2c); }
+
+/* ═══ QUOTE ═══ */
+#quote {
+  padding: 120px 60px; text-align: center;
+  background: var(--surface); position: relative; overflow: hidden;
+}
+.quote-glow {
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+  width: 600px; height: 300px;
+  background: radial-gradient(ellipse, rgba(200,16,46,0.1) 0%, transparent 70%);
+  filter: blur(60px); pointer-events: none;
+}
+.quote-mark {
+  font-family: var(--font-serif); font-size: 8rem; font-weight: 900;
+  color: var(--crimson); opacity: .3; line-height: .5; margin-bottom: 20px;
+  display: block;
+}
+.quote-text {
+  font-family: var(--font-serif); font-style: italic; font-weight: 400;
+  font-size: clamp(1.6rem, 3.5vw, 2.8rem); color: var(--white);
+  line-height: 1.35; max-width: 700px; margin: 0 auto 28px;
+  position: relative; z-index: 1;
+}
+.quote-author {
+  font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: .28em;
+  text-transform: uppercase; color: var(--crimson);
+}
+
+/* ═══ LOCATION ═══ */
+#ubicacion { padding: 100px 60px; max-width: 1200px; margin: 0 auto; }
+.location-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.map-area {
+  aspect-ratio: 4/3; border-radius: var(--radius-lg); overflow: hidden;
+  background: var(--surface-2); position: relative;
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-card);
+}
+.map-placeholder {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 12px;
+}
+.map-grid {
+  position: absolute; inset: 0; opacity: 0.06;
+  background-image: linear-gradient(rgba(200,16,46,1) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(200,16,46,1) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.map-pin-icon { font-size: 2.5rem; opacity: .4; }
+.map-address {
+  font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: .1em;
+  color: var(--white-30); text-align: center; max-width: 200px; line-height: 1.7;
+}
+.map-pulse {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--crimson); opacity: .7;
+  box-shadow: 0 0 0 0 rgba(200,16,46,0.5);
+  animation: mapPulse 2.5s ease infinite;
+}
+@keyframes mapPulse {
+  0% { box-shadow: 0 0 0 0 rgba(200,16,46,0.6); }
+  70% { box-shadow: 0 0 0 24px rgba(200,16,46,0); }
+  100% { box-shadow: 0 0 0 0 rgba(200,16,46,0); }
+}
+.location-glass {
+  padding: 40px; background: var(--glass-bg); backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border); border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+}
+.location-title {
+  font-family: var(--font-serif); font-weight: 600; font-size: 2rem;
+  letter-spacing: .06em; color: var(--white); margin-bottom: 32px;
+}
+.location-row {
+  display: flex; align-items: flex-start; gap: 16px; margin-bottom: 22px;
+}
+.location-row:last-of-type { margin-bottom: 32px; }
+.loc-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--crimson);
+  flex-shrink: 0; margin-top: 4px;
+  box-shadow: 0 0 10px var(--crimson-glow);
+}
+.loc-label {
+  font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--crimson); margin-bottom: 4px;
+}
+.loc-val {
+  font-family: var(--font-inter); font-size: 0.9rem; font-weight: 400;
+  color: var(--white-85); line-height: 1.5;
+}
+.btn-maps {
+  width: 100%; padding: 14px; border-radius: 50px; text-align: center;
+  background: transparent; border: 1px solid rgba(200,16,46,0.4); color: var(--crimson);
+  font-family: var(--font-sans); font-size: 0.74rem; font-weight: 500;
+  letter-spacing: .1em; text-transform: uppercase; text-decoration: none; cursor: none;
+  transition: all .35s; display: block;
+}
+.btn-maps:hover {
+  background: var(--crimson); color: var(--white);
+  box-shadow: var(--shadow-red-sm);
+}
+
+/* ═══ CONTACT ═══ */
+#contacto {
+  padding: 100px 60px; background: var(--surface);
+  position: relative; overflow: hidden;
+}
+.contact-inner { max-width: 700px; margin: 0 auto; position: relative; z-index: 1; }
+.contact-form {
+  padding: 48px; background: var(--glass-bg); backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-border); border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.form-label {
+  font-family: var(--font-mono); font-size: 0.52rem; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--white-55);
+}
+.form-input, .form-select, .form-textarea {
+  width: 100%; padding: 14px 18px;
+  background: rgba(255,255,255,0.04); border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm); color: var(--white);
+  font-family: var(--font-inter); font-size: 0.86rem; font-weight: 300;
+  outline: none; transition: border-color .3s, box-shadow .3s; appearance: none;
+}
+.form-input::placeholder, .form-textarea::placeholder { color: rgba(255,255,255,0.2); }
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: rgba(200,16,46,0.5);
+  box-shadow: 0 0 0 3px rgba(200,16,46,0.08);
+}
+.form-select option { background: var(--surface-2); color: var(--white); }
+.form-textarea { resize: vertical; min-height: 120px; }
+.btn-submit {
+  width: 100%; padding: 16px; border-radius: 50px; border: none; cursor: pointer;
+  background: var(--crimson); color: var(--white);
+  font-family: var(--font-inter); font-size: 0.8rem; font-weight: 600;
+  letter-spacing: .16em; text-transform: uppercase;
+  box-shadow: 0 4px 24px rgba(200,16,46,0.5), 0 0 60px rgba(200,16,46,0.2);
+  transition: all .35s; margin-top: 8px;
+}
+.btn-submit:hover {
+  box-shadow: 0 8px 48px rgba(200,16,46,0.7), 0 0 120px rgba(200,16,46,0.3);
+  transform: translateY(-2px);
+}
+.wa-btn {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  margin-top: 16px; padding: 14px; border-radius: 50px;
+  background: rgba(37,211,102,0.06); border: 1px solid rgba(37,211,102,0.2); color: rgba(37,211,102,0.8);
+  font-family: var(--font-inter); font-size: 0.76rem; font-weight: 500; letter-spacing: .04em;
+  text-decoration: none; cursor: pointer; transition: all .3s;
+}
+.wa-btn:hover { background: rgba(37,211,102,0.12); border-color: #25d366; color: #25d366; box-shadow: 0 0 20px rgba(37,211,102,0.15); }
+.wa-dot { width: 8px; height: 8px; border-radius: 50%; background: #25d366; flex-shrink: 0; }
+
+/* ═══ FOOTER ═══ */
+footer {
+  background: var(--black-deep); padding: 72px 60px 40px;
+  border-top: 1px solid rgba(200,16,46,0.12);
+  position: relative; overflow: hidden;
+}
+.footer-glow {
+  position: absolute; bottom: -100px; left: 50%; transform: translateX(-50%);
+  width: 600px; height: 300px;
+  background: radial-gradient(ellipse, rgba(200,16,46,0.07) 0%, transparent 70%);
+  filter: blur(60px);
+}
+.footer-top {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 48px; padding-bottom: 48px;
+  border-bottom: 1px solid var(--glass-border);
+  position: relative; z-index: 1;
+}
+.f-logo { font-family: var(--font-serif); font-size: 2.2rem; font-weight: 900; letter-spacing: .12em; color: var(--white); margin-bottom: 8px; }
+.f-logo span { color: var(--crimson); }
+.f-tagline { font-family: var(--font-serif); font-style: italic; font-size: 0.9rem; color: var(--white-30); }
+.f-handles { display: flex; flex-direction: column; gap: 4px; margin-top: 16px; }
+.f-handle {
+  font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: .1em;
+  color: var(--white-30); text-decoration: none; transition: color .3s;
+}
+.f-handle:hover { color: var(--crimson); }
+.f-links { display: flex; gap: 56px; }
+.f-col-title {
+  font-family: var(--font-mono); font-size: 0.52rem; letter-spacing: .26em;
+  text-transform: uppercase; color: var(--white-30); margin-bottom: 18px;
+}
+.f-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.f-col ul a {
+  font-family: var(--font-sans); font-size: 0.8rem; font-weight: 300;
+  color: var(--white-55); text-decoration: none; transition: color .3s;
+}
+.f-col ul a:hover { color: var(--white); }
+.footer-bot {
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 28px; position: relative; z-index: 1;
+}
+.f-copy { font-family: var(--font-sans); font-size: 0.7rem; font-weight: 300; color: rgba(255,255,255,0.18); }
+.f-made { font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: .12em; color: rgba(255,255,255,0.18); }
+.f-dot { display: inline-block; width: 5px; height: 5px; border-radius: 50%; background: var(--crimson); margin: 0 6px; vertical-align: middle; opacity: .5; }
+
+/* SCROLL REVEAL */
+.reveal {
+  opacity: 0; transform: translateY(40px);
+  transition: opacity .8s cubic-bezier(.25,.46,.45,.94), transform .8s cubic-bezier(.25,.46,.45,.94);
+}
+.reveal.in { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: .1s; }
+.reveal-delay-2 { transition-delay: .2s; }
+.reveal-delay-3 { transition-delay: .3s; }
+
+/* FLOATING WA BUTTON */
+.wa-float {
+  position: fixed; bottom: 28px; right: 28px; z-index: 900;
+  width: 58px; height: 58px; border-radius: 50%;
+  background: #25d366;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.4), 0 0 0 0 rgba(37,211,102,0.3);
+  text-decoration: none; cursor: pointer;
+  transition: transform .3s, box-shadow .3s;
+  animation: waPulse 3s ease infinite;
+}
+.wa-float:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 36px rgba(37,211,102,0.6), 0 0 0 0 rgba(37,211,102,0);
+  animation: none;
+}
+.wa-float svg { width: 28px; height: 28px; fill: white; }
+.wa-float-tooltip {
+  position: absolute; right: 68px; top: 50%; transform: translateY(-50%);
+  background: rgba(8,8,8,0.9); backdrop-filter: blur(12px);
+  border: 1px solid rgba(37,211,102,0.25); border-radius: 50px;
+  padding: 8px 16px; white-space: nowrap;
+  font-family: var(--font-inter); font-size: 0.72rem; font-weight: 500; color: #25d366;
+  opacity: 0; pointer-events: none; transition: opacity .3s;
+}
+.wa-float:hover .wa-float-tooltip { opacity: 1; }
+@keyframes waPulse {
+  0% { box-shadow: 0 4px 20px rgba(37,211,102,0.4), 0 0 0 0 rgba(37,211,102,0.35); }
+  70% { box-shadow: 0 4px 20px rgba(37,211,102,0.4), 0 0 0 18px rgba(37,211,102,0); }
+  100% { box-shadow: 0 4px 20px rgba(37,211,102,0.4), 0 0 0 0 rgba(37,211,102,0); }
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav { width: calc(100% - 24px); top: 12px; }
+  .nav-links { display: none; }
+  #hero { padding: 100px 24px 60px; }
+  .hero-cards { display: none; }
+  .hero-title { font-size: clamp(4rem, 16vw, 6rem); }
+  #about { padding: 80px 24px; }
+  .about-inner { grid-template-columns: 1fr; gap: 48px; }
+  #servicios { padding: 80px 24px; }
+  .services-grid { grid-template-columns: 1fr 1fr; }
+  #galeria { padding: 80px 24px; }
+  .ig-grid { grid-template-columns: repeat(3,1fr); }
+  #ubicacion { padding: 80px 24px; }
+  .location-layout { grid-template-columns: 1fr; }
+  #contacto { padding: 80px 24px; }
+  .form-row { grid-template-columns: 1fr; }
+  footer { padding: 52px 24px 28px; }
+  .footer-top { flex-direction: column; }
+  .f-links { flex-wrap: wrap; gap: 32px; }
+}
+@media(max-width:600px){
+  .services-grid { grid-template-columns: 1fr; }
+  .ig-grid { grid-template-columns: repeat(2,1fr); }
+  .hero-title { font-size: clamp(3.2rem, 14vw, 5rem); }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav id="navbar">
+  <a class="nav-logo" href="#hero">BARBERÍA<span>3M</span></a>
+  <ul class="nav-links">
+    <li><a href="#hero">Inicio</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#about">Nosotros</a></li>
+    <li><a href="#galeria">Galería</a></li>
+    <li><a href="#ubicacion">Agenda</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <a class="btn-reservar" href="#contacto">Reservar</a>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="particles" id="particles"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Barbería Premium · Colombia</div>
+    <h1 class="hero-title">BARBERÍA<span class="m3">3M</span></h1>
+    <p class="hero-subtitle">Tu mejor versión empieza acá.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">Fade</span>
+      <span class="hero-tag">Beard</span>
+      <span class="hero-tag">Premium Cuts</span>
+      <span class="hero-tag">Luxury Experience</span>
+      <span class="hero-tag">9AM — 9PM</span>
+    </div>
+    <div class="hero-ctas">
+      <a class="btn-primary" href="https://wa.me/message/KHTW4YBKOB3TJ1" target="_blank">Agendar cita</a>
+      <a class="btn-secondary" href="#servicios">Ver servicios</a>
+    </div>
+  </div>
+
+  <!-- Floating glass cards -->
+  <div class="hero-cards">
+    <div class="hero-card hc-1">
+      <div class="hero-card-label">Comunidad</div>
+      <div class="hero-card-val">712 Seguidores</div>
+      <div class="hero-card-sub">@barberia_3m</div>
+    </div>
+    <div class="hero-card hc-2">
+      <div class="hero-card-label">Portfolio</div>
+      <div class="hero-card-val">249 Publicaciones</div>
+      <div class="hero-card-sub">Instagram</div>
+    </div>
+    <div class="hero-card hc-3">
+      <div class="hero-card-label">Ubicación</div>
+      <div class="hero-card-val">Colombia</div>
+      <div class="hero-card-sub">Junín · Antioquia</div>
+    </div>
+    <div class="hero-card hc-4">
+      <div class="hero-card-label">Horario</div>
+      <div class="hero-card-val">Lun — Sáb</div>
+      <div class="hero-card-sub">Open · 9AM – 9PM</div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ═══ ABOUT ═══ -->
+<section id="about">
+  <div class="about-glow"></div>
+  <div class="about-inner">
+    <div class="reveal">
+      <p class="about-eyebrow">Nuestra esencia</p>
+      <h2 class="about-title">Más que una barbería.<br><em>Una experiencia</em><br>de imagen.</h2>
+      <p class="about-body">En Barbería3M cada detalle importa. Desde el primer corte hasta el último trazo de la navaja, creamos experiencias de imagen que definen tu estilo urbano. No somos un lugar al que vas — somos el lugar al que vuelves.</p>
+    </div>
+    <div class="about-cards reveal reveal-delay-1">
+      <div class="about-card">
+        <div class="about-card-icon">✦</div>
+        <div class="about-card-title">Cortes Premium</div>
+        <div class="about-card-desc">Técnicas de última generación con acabado de lujo.</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">◈</div>
+        <div class="about-card-title">Atención Personalizada</div>
+        <div class="about-card-desc">Tu estilo, tu identidad, nuestra obsesión.</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">⬡</div>
+        <div class="about-card-title">Estilo Urbano</div>
+        <div class="about-card-desc">Tendencias del street style adaptadas a ti.</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">◉</div>
+        <div class="about-card-title">Ambiente Exclusivo</div>
+        <div class="about-card-desc">Espacio diseñado para la élite urbana.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SERVICES ═══ -->
+<section id="servicios">
+  <div class="section-glow-r"></div>
+  <div class="section-header reveal">
+    <p class="section-eyebrow">Nuestros servicios</p>
+    <h2 class="section-title">Precisión sin compromiso</h2>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <span class="service-num">01</span>
+      <div class="service-line"></div>
+      <div class="service-name">Fade Premium</div>
+      <p class="service-desc">Degradado perfecto con transiciones suaves. El corte que define tu silueta urbana.</p>
+      <div class="service-price"><span>desde</span>$25K</div>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <span class="service-num">02</span>
+      <div class="service-line"></div>
+      <div class="service-name">Barba & Perfilado</div>
+      <p class="service-desc">Diseño y perfilado de barba con navaja caliente y acabado de lujo.</p>
+      <div class="service-price"><span>desde</span>$18K</div>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <span class="service-num">03</span>
+      <div class="service-line"></div>
+      <div class="service-name">Diseño + Corte</div>
+      <p class="service-desc">Diseño de línea más corte completo. Arte en tu cabello.</p>
+      <div class="service-price"><span>desde</span>$32K</div>
+    </div>
+    <div class="service-card reveal">
+      <span class="service-num">04</span>
+      <div class="service-line"></div>
+      <div class="service-name">Corte + Lavado</div>
+      <p class="service-desc">Corte premium más lavado con productos de alta gama.</p>
+      <div class="service-price"><span>desde</span>$30K</div>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <span class="service-num">05</span>
+      <div class="service-line"></div>
+      <div class="service-name">Cejas</div>
+      <p class="service-desc">Definición de cejas para un acabado impecable y masculino.</p>
+      <div class="service-price"><span>desde</span>$12K</div>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <span class="service-num">06</span>
+      <div class="service-line"></div>
+      <div class="service-name">Full Experience</div>
+      <p class="service-desc">Corte + Barba + Cejas + Lavado. La experiencia completa de lujo.</p>
+      <div class="service-price"><span>desde</span>$58K</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ GALERIA IG ═══ -->
+<section id="galeria">
+  <div class="ig-header reveal">
+    <div>
+      <p class="section-eyebrow">Galería</p>
+      <h2 class="section-title" style="font-size:clamp(1.8rem,3.5vw,2.8rem)">Nuestro trabajo habla</h2>
+    </div>
+    <a class="ig-handle" href="https://instagram.com/barberia_3m" target="_blank">@barberia_3m ↗</a>
+  </div>
+  <div class="ig-grid reveal">
+    <div class="ig-cell"><div class="ig-cell-bg">💈</div><div class="ig-cell-ov"><div class="ig-cell-tag">Fade<br>Premium</div></div></div>
+    <div class="ig-cell"><div class="ig-cell-bg">✂️</div><div class="ig-cell-ov"><div class="ig-cell-tag">Diseño<br>Linea</div></div></div>
+    <div class="ig-cell"><div class="ig-cell-bg">🪒</div><div class="ig-cell-ov"><div class="ig-cell-tag">Barba<br>Navaja</div></div></div>
+    <div class="ig-cell"><div class="ig-cell-bg">💈</div><div class="ig-cell-ov"><div class="ig-cell-tag">Skin<br>Fade</div></div></div>
+    <div class="ig-cell"><div class="ig-cell-bg">✂️</div><div class="ig-cell-ov"><div class="ig-cell-tag">Full<br>Cut</div></div></div>
+    <div class="ig-cell"><div class="ig-cell-bg">🪒</div><div class="ig-cell-ov"><div class="ig-cell-tag">Premium<br>Style</div></div></div>
+  </div>
+</section>
+
+<!-- ═══ QUOTE ═══ -->
+<section id="quote">
+  <div class="quote-glow"></div>
+  <span class="quote-mark reveal">"</span>
+  <blockquote class="quote-text reveal reveal-delay-1">
+    Un corte cambia tu imagen.<br>La experiencia cambia tu actitud.
+  </blockquote>
+  <p class="quote-author reveal reveal-delay-2">— Barbería3M · Filosofía</p>
+</section>
+
+<!-- ═══ LOCATION ═══ -->
+<section id="ubicacion">
+  <div class="location-layout">
+    <div class="map-area reveal">
+      <div class="map-grid"></div>
+      <div class="map-placeholder">
+        <div class="map-pulse"></div>
+        <div class="map-pin-icon">📍</div>
+        <p class="map-address">Junín 1 Calle 7N #5-11<br>Antioquia, Colombia</p>
+      </div>
+    </div>
+    <div class="reveal reveal-delay-1">
+      <p class="section-eyebrow" style="margin-bottom:16px">Encuéntranos</p>
+      <h2 class="section-title" style="font-size:clamp(1.8rem,3vw,2.6rem);text-align:left;margin-bottom:36px">Ven a vivir<br>la experiencia</h2>
+      <div class="location-glass">
+        <h3 class="location-title">Barbería<span style="color:var(--crimson)">3M</span></h3>
+        <div class="location-row">
+          <div class="loc-dot"></div>
+          <div>
+            <div class="loc-label">Dirección</div>
+            <div class="loc-val">Junín 1 Calle 7N #5-11</div>
+          </div>
+        </div>
+        <div class="location-row">
+          <div class="loc-dot"></div>
+          <div>
+            <div class="loc-label">Horario</div>
+            <div class="loc-val">9:00 AM — 9:00 PM</div>
+          </div>
+        </div>
+        <div class="location-row">
+          <div class="loc-dot"></div>
+          <div>
+            <div class="loc-label">Días</div>
+            <div class="loc-val">Lunes a Sábado</div>
+          </div>
+        </div>
+        <a class="btn-maps" href="https://maps.app.goo.gl/oKazHZrK5Y2rj5R58" target="_blank">Cómo llegar →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CONTACT ═══ -->
+<section id="contacto">
+  <div class="section-glow-r" style="top:30%;"></div>
+  <div class="section-header reveal">
+    <p class="section-eyebrow">Agenda tu cita</p>
+    <h2 class="section-title">Reserva tu espacio</h2>
+  </div>
+  <div class="contact-inner">
+    <div class="contact-form reveal reveal-delay-1">
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Nombre</label>
+          <input class="form-input" type="text" placeholder="Tu nombre completo">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Teléfono</label>
+          <input class="form-input" type="tel" placeholder="+57 300 000 0000">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label class="form-label">Servicio</label>
+          <select class="form-select">
+            <option value="">Selecciona un servicio</option>
+            <option>Fade Premium</option>
+            <option>Barba &amp; Perfilado</option>
+            <option>Diseño + Corte</option>
+            <option>Corte + Lavado</option>
+            <option>Cejas</option>
+            <option>Full Experience</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Fecha preferida</label>
+          <input class="form-input" type="date">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Mensaje (opcional)</label>
+        <textarea class="form-textarea" placeholder="Alguna preferencia o detalle adicional..."></textarea>
+      </div>
+      <button class="btn-submit" id="btnSubmit">Enviar por WhatsApp ↗</button>
+      <a class="wa-btn" href="https://wa.me/message/KHTW4YBKOB3TJ1" target="_blank">
+        <div class="wa-dot"></div>
+        Chatear directamente · @barberia_3m
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-glow"></div>
+  <div class="footer-top">
+    <div>
+      <div class="f-logo">BARBERÍA<span>3M</span></div>
+      <p class="f-tagline">Tu mejor versión empieza acá.</p>
+      <div class="f-handles">
+        <a class="f-handle" href="https://instagram.com/barberia_3m" target="_blank">▶ Instagram · @barberia_3m</a>
+        <a class="f-handle" href="https://instagram.com/jose_mercadooo" target="_blank">▶ Instagram · @jose_mercadooo</a>
+        <a class="f-handle" href="https://www.tiktok.com/@barberia.3m" target="_blank">▶ TikTok · @barberia.3m</a>
+      </div>
+    </div>
+    <div class="f-links">
+      <div class="f-col">
+        <div class="f-col-title">Servicios</div>
+        <ul>
+          <li><a href="#servicios">Fade Premium</a></li>
+          <li><a href="#servicios">Barba & Perfilado</a></li>
+          <li><a href="#servicios">Diseño + Corte</a></li>
+          <li><a href="#servicios">Full Experience</a></li>
+        </ul>
+      </div>
+      <div class="f-col">
+        <div class="f-col-title">Barbería</div>
+        <ul>
+          <li><a href="#about">Nosotros</a></li>
+          <li><a href="#galeria">Galería</a></li>
+          <li><a href="#ubicacion">Ubicación</a></li>
+          <li><a href="#contacto">Reservar</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bot">
+    <p class="f-copy">© 2025 Barbería3M<span class="f-dot"></span>Todos los derechos reservados</p>
+    <p class="f-made">Junín · Antioquia · Colombia</p>
+  </div>
+</footer>
+
+<!-- FLOATING WA BUTTON -->
+<a class="wa-float" href="https://wa.me/message/KHTW4YBKOB3TJ1" target="_blank" title="Agendar por WhatsApp">
+  <div class="wa-float-tooltip">Agendar cita ahora</div>
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+// NAVBAR SCROLL
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// PARTICLES
+const particlesEl = document.getElementById('particles');
+function makeParticle() {
+  const p = document.createElement('div');
+  p.className = 'particle';
+  const x = Math.random() * 100;
+  const dur = 4 + Math.random() * 6;
+  const delay = Math.random() * 5;
+  const size = 1 + Math.random() * 2;
+  p.style.cssText = `left:${x}%;bottom:${-10 + Math.random()*20}%;width:${size}px;height:${size}px;animation-duration:${dur}s;animation-delay:${delay}s;`;
+  particlesEl.appendChild(p);
+  setTimeout(() => p.remove(), (dur + delay) * 1000);
+}
+for(let i = 0; i < 20; i++) setTimeout(() => makeParticle(), i * 300);
+setInterval(makeParticle, 800);
+
+// SCROLL REVEAL
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// FORM → WHATSAPP AUTO MESSAGE
+document.getElementById('btnSubmit').addEventListener('click', function(e) {
+  e.preventDefault();
+  const nombre = document.querySelector('input[type="text"]').value.trim();
+  const tel = document.querySelector('input[type="tel"]').value.trim();
+  const servicio = document.querySelector('.form-select').value;
+  const fecha = document.querySelector('input[type="date"]').value;
+  const mensaje = document.querySelector('.form-textarea').value.trim();
+
+  if (!nombre || !servicio) {
+    this.textContent = '⚠ Completa nombre y servicio';
+    this.style.background = '#7a3a00';
+    setTimeout(() => { this.textContent = 'Enviar por WhatsApp ↗'; this.style.background = ''; }, 2500);
+    return;
+  }
+
+  let fechaFmt = fecha ? new Date(fecha + 'T12:00:00').toLocaleDateString('es-CO', { weekday:'long', year:'numeric', month:'long', day:'numeric' }) : 'a convenir';
+
+  const texto = `¡Hola Barbería3M! 💈\n\nQuiero agendar una cita:\n\n👤 *Nombre:* ${nombre}\n📱 *Teléfono:* ${tel || 'No indicado'}\n✂️ *Servicio:* ${servicio}\n📅 *Fecha preferida:* ${fechaFmt}${mensaje ? '\n💬 *Nota:* ' + mensaje : ''}\n\n¡Gracias!`;
+
+  const url = 'https://wa.me/message/KHTW4YBKOB3TJ1?text=' + encodeURIComponent(texto);
+  window.open(url, '_blank');
+
+  this.textContent = '✓ Abriendo WhatsApp...';
+  this.style.background = '#1a7a40';
+  setTimeout(() => { this.textContent = 'Enviar por WhatsApp ↗'; this.style.background = ''; }, 3000);
+});
+</script>
+</body>
+</html>
